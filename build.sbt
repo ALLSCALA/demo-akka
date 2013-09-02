@@ -6,6 +6,8 @@ version := "0.1.0"
 
 scalaVersion := Version.scala
 
+resolvers += "spray-releases" at "http://repo.spray.io"
+
 libraryDependencies ++= Dependencies.demoAkka
 
 scalacOptions ++= List(
