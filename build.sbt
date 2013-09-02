@@ -1,19 +1,18 @@
-organization := "name.heikoseeberger"
+lazy val demoAkka = project in file(".")
 
 name := "demo-akka"
 
-version := "0.1.0"
-
-scalaVersion := Version.scala
+Common.settings
 
 libraryDependencies ++= Dependencies.demoAkka
 
-scalacOptions ++= List(
-  "-unchecked",
-  "-deprecation",
-  "-language:_",
-  "-target:jvm-1.7",
-  "-encoding", "UTF-8"
-)
-
-initialCommands in console := "import name.heikoseeberger.demoakka._"
+initialCommands := """|import name.heikoseeberger.demoakka._
+                      |import akka.actor._
+                      |import akka.actor.ActorDSL._
+                      |import akka.cluster._
+                      |import akka.cluster.routing._
+                      |import akka.routing._
+                      |import akka.util._
+                      |import com.typesafe.config._
+                      |import scala.concurrent._
+                      |import scala.concurrent.duration._""".stripMargin
