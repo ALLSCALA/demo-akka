@@ -14,27 +14,24 @@
  * limitations under the License.
  */
 
-package name.heikoseeberger
+package name.heikoseeberger.demoakka
 
-import scala.util.Properties
+import akka.actor.{ Actor, ActorSystem, Props }
 
-package object demoakka {
+object PrinterApp extends App {
 
-  type Traversable[+A] = scala.collection.immutable.Traversable[A]
+  val system = ActorSystem("demo-system")
+  val printer = system.actorOf(Props(new Printer), "printer")
+  printer ! "Hello, world!"
 
-  val Traversable = scala.collection.immutable.Traversable
+  readLine(s"Hit ENTER to exit ...$newLine")
+  system.shutdown()
+  system.awaitTermination()
+}
 
-  type Iterable[+A] = scala.collection.immutable.Iterable[A]
+class Printer extends Actor {
 
-  val Iterable = scala.collection.immutable.Iterable
-
-  type Seq[+A] = scala.collection.immutable.Seq[A]
-
-  val Seq = scala.collection.immutable.Seq
-
-  type IndexedSeq[+A] = scala.collection.immutable.IndexedSeq[A]
-
-  val IndexedSeq = scala.collection.immutable.IndexedSeq
-
-  val newLine = Properties.lineSeparator
+  override def receive: Receive = {
+    case message => println(message)
+  }
 }
